@@ -19,7 +19,7 @@ To build the servers, just run `gradlew make` in the command line. By the way, y
 - http://localhost:8084/spring
 - http://localhost:8085/vertx
 +
-Set the `SERVICE_URI` environment variable with one of these values. Run the correspounding server with `java -jar <project>/build/lib/xxx.jar`.
+Set the `SERVICE_URI` environment variable with one of these values. Run the corresponding server with `java -jar <project>/build/lib/xxx.jar`.
 1. Run the Gatling scenario: `./gradlew loadTest`
 
 == Notes
