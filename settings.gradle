@@ -5,4 +5,3 @@ include 'dropwizard'
 include 'vertx'
 include 'sparkjava'
 include 'spring-boot'
-

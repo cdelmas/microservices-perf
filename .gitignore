@@ -7,4 +7,5 @@ dropwizard/build
 vertx/build
 springboot/build
 sparkjava/build
+perf-runner/build
 build

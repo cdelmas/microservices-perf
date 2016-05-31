@@ -1,0 +1,41 @@
+apply plugin: "java"
+
+apply plugin: "scala"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+[compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "io.gatling.highcharts:gatling-charts-highcharts:2.2.1"
+}
+
+task loadTest(type: JavaExec) {
+    dependsOn testClasses
+    description = "load test with Gatling"
+    group = "Load Test"
+    classpath = sourceSets.test.runtimeClasspath
+    jvmArgs = [
+            // workaround for https://github.com/gatling/gatling/issues/2689
+            "-Dgatling.core.directory.binaries=${sourceSets.test.output.classesDir.toString()}",
+            "-Dlogback.configurationFile=${logbackGatlingConfig()}",
+    ]
+    main = "io.gatling.app.Gatling"
+    args = [
+            "--simulation", "io.github.cdelmas.microservices.perf.PerfSimulation",
+            "--results-folder", "${buildDir}/gatling-results",
+            "--binaries-folder", sourceSets.test.output.classesDir.toString(), // ignored because of above bug
+            "--bodies-folder", sourceSets.test.resources.srcDirs.toList().first().toString() + "/gatling/bodies",
+    ]
+}
+def logbackGatlingConfig() {
+    return sourceSets.test.resources.find { it.name == 'logback-gatling.xml' };
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.4"
+}
