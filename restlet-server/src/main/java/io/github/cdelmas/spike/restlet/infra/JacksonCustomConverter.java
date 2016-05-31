@@ -1,7 +1,7 @@
 
 package io.github.cdelmas.spike.restlet.infra;
 /*
-   Copyright 2015 Cyril Delmas
+   Copyright 2016 Cyril Delmas
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
