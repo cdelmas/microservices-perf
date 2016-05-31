@@ -1,0 +1,20 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+dependencies {
+    compile 'io.vertx:vertx-core:3.2.1'
+    compile 'io.vertx:vertx-web:3.2.1'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.github.cdelmas.spike.vertx.Main'
+    }
+}
+
+task make << {
+    println 'building ' + project.name
+}
+
+make.dependsOn shadowJar
