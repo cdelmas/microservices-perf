@@ -53,3 +53,9 @@ project(':sparkjava') {
         compile project(':common')
     }
 }
+
+project(':apollo') {
+    dependencies {
+        compile project(':common')
+    }
+}

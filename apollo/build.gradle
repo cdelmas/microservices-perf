@@ -1,0 +1,19 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+dependencies {
+    compile 'com.spotify:apollo-http-service:1.0.3'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'io.github.cdelmas.spike.apollo.Main'
+    }
+}
+
+task make << {
+    println 'building ' + project.name
+}
+
+make.dependsOn shadowJar
