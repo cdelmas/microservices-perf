@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8081/dropwizard
+java -jar ../dropwizard/build/libs/dropwizard-1.0-all.jar server ../dropwizard/src/main/resources/dropwizard-server.yml &
+./gradlew loadTest
+

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8084/spring
+java -jar ../spring-boot/build/libs/spring-boot-1.0.jar &
+./gradlew loadTest
+

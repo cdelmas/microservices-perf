@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8083/spark
+java -jar ../sparkjava/build/libs/sparkjava-1.0-all.jar &
+./gradlew loadTest
+

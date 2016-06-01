@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8082/restlet
+java -jar ../restlet-server/build/libs/restlet-server-1.0-all.jar &
+./gradlew loadTest
+

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8085/vertx
+java -jar ../vertx/build/libs/vertx-1.0-all.jar &
+./gradlew loadTest
+
