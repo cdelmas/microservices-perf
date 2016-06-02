@@ -3,12 +3,13 @@ plugins {
 }
 
 dependencies {
-    compile 'com.spotify:apollo-http-service:1.0.3'
+    compile 'com.spotify:apollo-http-service:1.0.4'
+    compile 'com.spotify:apollo-extra:1.0.4'
 }
 
 jar {
     manifest {
-        attributes 'Main-Class': 'io.github.cdelmas.spike.apollo.Main'
+        attributes 'Main-Class': 'io.github.cdelmas.microservices.apollo.Main'
     }
 }
 

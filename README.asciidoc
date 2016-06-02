@@ -18,6 +18,7 @@ To build the servers, just run `gradlew make` in the command line. By the way, y
 - spark
 - springboot
 - vertx
+- apollo
 +
 1. The results are in `perf-runner/build/gatling-results`
 

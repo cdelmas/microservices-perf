@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+export SERVICE_URI=http://localhost:8086/apollo
+java -Dhttp.server.port=8086 -jar ../apollo/build/libs/apollo-1.0-all.jar &
+./gradlew loadTest
+
