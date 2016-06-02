@@ -21,6 +21,7 @@ To build the servers, just run `gradlew make` in the command line. By the way, y
 - apollo
 +
 1. The results are in `perf-runner/build/gatling-results`
+1. Once done, you have to kill the process (use `jps` to get the PID)
 
 == Notes
 
