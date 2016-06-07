@@ -26,7 +26,7 @@ import io.vertx.ext.web.Router;
 public class Main {
 
     public static void main(String[] args) {
-
+        long time = System.currentTimeMillis();
         Json.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 
         Vertx vertx = Vertx.vertx();
@@ -40,5 +40,6 @@ public class Main {
                 .setPort(8085);
         HttpServer server = vertx.createHttpServer(serverOptions);
         server.requestHandler(router::accept).listen();
+        System.out.println("started in " + (System.currentTimeMillis() - time) + " ms");
     }
 }

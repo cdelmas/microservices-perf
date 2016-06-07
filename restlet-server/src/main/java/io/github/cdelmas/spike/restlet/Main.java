@@ -16,6 +16,7 @@
 package io.github.cdelmas.spike.restlet;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.github.cdelmas.spike.restlet.hello.HelloResource;
 import io.github.cdelmas.spike.restlet.infra.JacksonCustomConverter;
@@ -28,11 +29,13 @@ import org.restlet.ext.jackson.JacksonConverter;
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        long time = System.currentTimeMillis();
         replaceConverter(JacksonConverter.class, new JacksonCustomConverter());
         Component component = new Component();
         component.getServers().add(Protocol.HTTP, 8082);
         component.getDefaultHost().attach("/restlet/hello", HelloResource.class);
         component.start();
+        System.out.println("started in " + (System.currentTimeMillis() - time) + " ms");
     }
 
     private static void replaceConverter(
