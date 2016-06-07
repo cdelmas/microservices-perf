@@ -26,6 +26,7 @@ import com.spotify.apollo.route.JsonSerializerMiddlewares;
 import com.spotify.apollo.route.Middleware;
 import com.spotify.apollo.route.Route;
 import com.spotify.apollo.route.SyncHandler;
+import io.github.cdelmas.spike.common.Message;
 import okio.ByteString;
 
 public class Main {
@@ -36,11 +37,11 @@ public class Main {
     static void init(Environment environment) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        final Middleware<SyncHandler<Object>, AsyncHandler<Response<ByteString>>> jsonSerializer = JsonSerializerMiddlewares.jsonSerializeSync(objectMapper.writer());
 
         HelloResource helloResource = new HelloResource();
         environment.routingEngine()
-                .registerAutoRoute(Route.with(jsonSerializer, "GET", "/apollo/hello", helloResource::hello));
+                .registerAutoRoute(Route.async("GET", "/apollo/hello", helloResource::hello)
+                        .withMiddleware(JsonSerializerMiddlewares.jsonSerializeResponse(objectMapper.writer())));
     }
 
 }

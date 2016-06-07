@@ -15,16 +15,22 @@
 */
 package io.github.cdelmas.microservices.apollo;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import java.util.concurrent.atomic.AtomicLong;
 
 import com.spotify.apollo.RequestContext;
+import com.spotify.apollo.Response;
 import io.github.cdelmas.spike.common.Message;
 
 public class HelloResource {
 
     private final AtomicLong counter = new AtomicLong(0);
 
-    public Message hello(RequestContext routingContext) {
-        return new Message("hello world " + counter.incrementAndGet());
+    public CompletionStage<Response<Message>> hello(RequestContext routingContext) {
+        return CompletableFuture.completedFuture(Response.ok().withPayload(new Message("hello world " + counter.incrementAndGet())));
+    }
+
+    public void createMessage(RequestContext requestContext) {
     }
 }
