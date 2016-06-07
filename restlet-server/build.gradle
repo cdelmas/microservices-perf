@@ -13,6 +13,9 @@ dependencies {
     compile 'org.restlet.jse:org.restlet.ext.jackson:2.3.4'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.5'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.4.5'
+
+    // runtime 'org.restlet.jse:org.restlet.ext.jetty:2.3.4'
+    // runtime 'org.restlet.jse:org.restlet.ext.simple:2.3.4'
 }
 
 jar {
