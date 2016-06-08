@@ -15,22 +15,36 @@
 */
 package io.github.cdelmas.spike.dropwizard.hello;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import javax.ws.rs.core.UriInfo;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.cdelmas.spike.common.Message;
 
 @Path("/hello")
-@Produces(MediaType.APPLICATION_JSON)
 public class HelloWorldResource {
     private final AtomicLong counter = new AtomicLong(0);
 
     @GET
+    @Produces(MediaType.APPLICATION_JSON)
     public Message sayHello() {
         return new Message("Hello World " + counter.incrementAndGet());
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response createMessage(@Context UriInfo uriInfo, Message message) {
+        return Response.created(uriInfo.getBaseUriBuilder().path(HelloWorldResource.class).segment(UUID.randomUUID().toString()).build()).build();
+    }
+
 }
 

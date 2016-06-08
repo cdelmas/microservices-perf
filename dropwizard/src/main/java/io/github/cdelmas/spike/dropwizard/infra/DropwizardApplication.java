@@ -18,7 +18,6 @@ package io.github.cdelmas.spike.dropwizard.infra;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.Application;
-import io.dropwizard.java8.Java8Bundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.github.cdelmas.spike.dropwizard.hello.HelloWorldResource;
@@ -37,7 +36,6 @@ public class DropwizardApplication extends Application<DropwizardServerConfigura
 
     @Override
     public void initialize(Bootstrap<DropwizardServerConfiguration> bootstrap) {
-        bootstrap.addBundle(new Java8Bundle());
         ObjectMapper objectMapper = bootstrap.getObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
