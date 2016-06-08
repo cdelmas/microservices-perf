@@ -40,6 +40,6 @@ public class SampleController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> createMessage(@RequestBody Message message, UriComponentsBuilder uriBuilder) {
-        return ResponseEntity.created(uriBuilder.path("/spring/hello").pathSegment("{id}").buildAndExpand(UUID.randomUUID().toString()).toUri()).build();
+        return ResponseEntity.created(uriBuilder.path("/spring/hello/{id}").buildAndExpand(UUID.randomUUID().toString()).toUri()).build();
     }
 }
