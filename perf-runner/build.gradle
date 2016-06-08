@@ -20,7 +20,6 @@ task loadTest(type: JavaExec) {
     group = "Load Test"
     classpath = sourceSets.test.runtimeClasspath
     jvmArgs = [
-            // workaround for https://github.com/gatling/gatling/issues/2689
             "-Dgatling.core.directory.binaries=${sourceSets.test.output.classesDir.toString()}",
             "-Dlogback.configurationFile=${logbackGatlingConfig()}",
     ]
@@ -28,7 +27,7 @@ task loadTest(type: JavaExec) {
     args = [
             "--simulation", "io.github.cdelmas.microservices.perf.PerfSimulation",
             "--results-folder", "${buildDir}/gatling-results",
-            "--binaries-folder", sourceSets.test.output.classesDir.toString(), // ignored because of above bug
+            "--binaries-folder", sourceSets.test.output.classesDir.toString(),
             "--bodies-folder", sourceSets.test.resources.srcDirs.toList().first().toString() + "/gatling/bodies",
     ]
 }

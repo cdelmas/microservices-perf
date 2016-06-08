@@ -3,4 +3,4 @@ server:
   applicationContextPath: /dropwizard
   connector:
     type: http
-    port: 8081
+    port: 8086
