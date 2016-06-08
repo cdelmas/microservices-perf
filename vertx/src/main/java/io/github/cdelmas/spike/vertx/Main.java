@@ -18,10 +18,12 @@ package io.github.cdelmas.spike.vertx;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import io.github.cdelmas.spike.vertx.hello.HelloResource;
 import io.vertx.core.Vertx;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 
 public class Main {
 
@@ -35,6 +37,10 @@ public class Main {
 
         HelloResource helloResource = new HelloResource();
         router.get("/vertx/hello").produces("application/json").handler(helloResource::hello);
+        router.route("/vertx/hello").method(HttpMethod.POST).handler(BodyHandler.create());
+        router.post("/vertx/hello")
+                .consumes("application/json")
+                .handler(helloResource::createMessage);
 
         HttpServerOptions serverOptions = new HttpServerOptions()
                 .setPort(8085);
