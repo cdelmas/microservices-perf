@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import static spark.Spark.get;
 import static spark.Spark.port;
+import static spark.Spark.post;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -31,8 +32,9 @@ public class Main {
         port(8083);
         ObjectMapper objectMapper = createObjectMapper();
 
-        HelloResource helloResource = new HelloResource();
+        HelloResource helloResource = new HelloResource(objectMapper);
         get("/spark/hello", "application/json", helloResource::hello, objectMapper::writeValueAsString);
+        post("/spark/hello", helloResource::createMessage);
     }
 
     private static ObjectMapper createObjectMapper() {
