@@ -15,22 +15,31 @@
 */
 package io.github.cdelmas.spike.springboot.hello;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.cdelmas.spike.common.Message;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@RequestMapping("/spring/hello")
 public class SampleController {
 
     private final AtomicLong counter = new AtomicLong(0);
 
-    @RequestMapping("/spring/hello")
     @ResponseBody
     public Message home() {
         return new Message("Hello World " + counter.incrementAndGet());
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<?> createMessage(@RequestBody Message message, UriComponentsBuilder uriBuilder) {
+        return ResponseEntity.created(uriBuilder.path("/spring/hello").pathSegment("{id}").buildAndExpand(UUID.randomUUID().toString()).toUri()).build();
+    }
 }
