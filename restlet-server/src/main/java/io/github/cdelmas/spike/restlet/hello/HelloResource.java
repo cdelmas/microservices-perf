@@ -15,10 +15,13 @@
 */
 package io.github.cdelmas.spike.restlet.hello;
 
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 
 import io.github.cdelmas.spike.common.Message;
+import org.restlet.data.Status;
 import org.restlet.resource.Get;
+import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
 public class HelloResource extends ServerResource {
@@ -29,4 +32,11 @@ public class HelloResource extends ServerResource {
     public Message hello() {
         return new Message("Hello World " + counter.incrementAndGet());
     }
+
+    @Post("json")
+    public void createMessage(Message message) {
+        getResponse().setStatus(Status.SUCCESS_CREATED);
+        getResponse().setLocationRef(getRequest().getResourceRef().getBaseRef().addSegment(UUID.randomUUID().toString()));
+    }
+
 }
