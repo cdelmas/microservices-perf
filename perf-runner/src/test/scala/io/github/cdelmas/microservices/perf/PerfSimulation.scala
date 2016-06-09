@@ -15,8 +15,9 @@
 */
 package io.github.cdelmas.microservices.perf
 
+import io.gatling.core.Predef._
+import io.gatling.http.Predef._
 import scala.concurrent.duration._
-
 
 class PerfSimulation extends Simulation {
 
@@ -28,8 +29,8 @@ class PerfSimulation extends Simulation {
   val sayHello = scenario("Get to say Hello")
     .repeat(1000) {
       exec(http("Hello on " + serviceUri)
-        .acceptHeader("application/json")
         .get("/hello")
+        .header("Accept", "application/json")
         .check(status.is(200))
       ).pause(5 millisecond)
     }
@@ -37,19 +38,18 @@ class PerfSimulation extends Simulation {
   val postMessage = scenario("Post a message")
     .repeat(1000) {
       exec(http("post message " + serviceUri)
-        .header("Content-Type", "application/json")
         .post("/hello")
+        .header("Content-Type", "application/json")
         .body(StringBody("{\"content\": \"Hello World 1\"}"))
         .check(status.is(201))
       ).pause(5 millisecond)
     }
 
   setUp(
-    sayHello.inject(atOnceUsers(200)),
+    //sayHello.inject(atOnceUsers(200)),
     postMessage.inject(atOnceUsers(200))
   )
     .assertions(global.successfulRequests.percent.greaterThan(90))
     .protocols(httpConf)
     .maxDuration(10 minutes)
-
 }
